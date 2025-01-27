@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banned Words</title>
+    <style>
+        :root {
+            --p5-red: #FF0000;
+            --p5-dark-red: #8B0000;
+            --p5-black: rgba(0, 0, 0, 0.85);
+            --p5-accent: #FFD700;
+        }
+        body { 
+            color: #fff;
+            margin: 0;
+            padding-left: 250px;
+            font-family: system-ui, -apple-system, sans-serif;
+            position: relative;
+            min-height: 100vh;
+        }
+        .background-slideshow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            filter: blur(4px);
+        }
+        .background-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            filter: brightness(0.4);
+        }
+        .background-slide.active {
+            opacity: 1;
+        }
+        .sidebar {
+            width: 250px;
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            background: rgba(17, 17, 17, 0.7);
+            border-right: 1px solid var(--p5-red);
+            padding: 1rem;
+            z-index: 20;
+            backdrop-filter: blur(8px);
+        }
+        .nav-item {
+            color: #fff;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            padding: 0.5rem;
+            text-decoration: none;
+            display: block;
+            border-radius: 4px;
+        }
+        .nav-item:hover, .nav-item.active {
+            color: var(--p5-red);
+            background: rgba(255, 0, 0, 0.1);
+        }
+        .nav-item::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--p5-red);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+        .nav-item:hover::after {
+            transform: translateX(0);
+        }
+        .nav-section-header {
+            padding: 0.5rem;
+            color: #fff;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 4px;
+            background: rgba(0, 0, 0, 0.5);
+            border-left: 3px solid var(--p5-red);
+            transition: all 0.3s ease;
+        }
+        .nav-section-header:hover {
+            background: rgba(255, 0, 0, 0.2);
+            color: var(--p5-red);
+        }
+        .nav-section-content {
+            margin-left: 1rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+        .nav-section.active .nav-section-content {
+            display: block;
+        }
+        .category-section {
+            background: var(--p5-black);
+            margin: 1rem 0;
+            border-left: 3px solid var(--p5-red);
+            border-radius: 4px;
+        }
+        .category-header {
+            padding: 1rem;
+            cursor: pointer;
+            color: #fff;
+            font-size: 1.25rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        .category-header:hover {
+            color: var(--p5-red);
+            background: rgba(255, 0, 0, 0.1);
+        }
+        .category-header::before {
+            content: "▼";
+            display: inline-block;
+            margin-right: 0.5rem;
+            transition: transform 0.2s;
+        }
+        .category-header.collapsed::before {
+            transform: rotate(-90deg);
+        }
+        .category-content {
+            padding: 1rem;
+            display: none;
+            background: rgba(0, 0, 0, 0.2);
+        }
+        .category-content.active {
+            display: block;
+        }
+        .warning-box {
+            background: rgba(139, 0, 0, 0.5);
+            border: 1px solid var(--p5-red);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+        hr {
+            border-color: rgba(255, 0, 0, 0.3);
+            margin: 1rem 0;
+        }
+		.logo {
+    width: auto;
+    max-width: 200px;
+    height: 50px;
+    margin-bottom: 1rem;
+    object-fit: contain;
+}
+
+.main-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    margin-left: 70px;
+}
+    </style>
+</head>
+<body>
+    <div class="background-slideshow">
+        <div class="background-slide active" style="background-image: url('https://personacentral.com/wp-content/uploads/2024/05/P5X-Makoto-1-scaled.jpg')"></div>
+        <div class="background-slide" style="background-image: url('https://personacentral.com/wp-content/uploads/2024/05/P5X-Makoto-2-scaled.jpg')"></div>
+        <div class="background-slide" style="background-image: url('https://personacentral.com/wp-content/uploads/2024/05/Riko-Tanemura-1-scaled.jpg')"></div>
+        <div class="background-slide" style="background-image: url('https://personacentral.com/wp-content/uploads/2024/05/Sakai-Ayaka-2.jpg')"></div>
+        <div class="background-slide" style="background-image: url('https://personacentral.com/wp-content/uploads/2024/05/Motoha-Summer-3-scaled.jpg')"></div>
+    </div>
+
+    <nav class="sidebar">
+        <img src="https://cdn.imgchest.com/files/7mmc9onawx7.png" alt="NTTS Logo" class="logo">
+        
+        <a href="index.html" class="nav-item">Rules</a>
+        <hr>
+
+        <div class="nav-section">
+            <div class="nav-section-header">
+                <span>Server Guidelines</span>
+                <span class="arrow">▼</span>
+            </div>
+            <div class="nav-section-content">
+                <a href="banned-links.html" class="nav-item">Banned Links</a>
+                <a href="banned-words.html" class="nav-item active">Banned Words</a>
+            </div>
+        </div>
+
+        <div class="nav-section">
+            <div class="nav-section-header">
+                <span>Staff/Applications</span>
+                <span class="arrow">▼</span>
+            </div>
+            <div class="nav-section-content">
+                <a href="staff-guidelines.html" class="nav-item">Staff Guidelines</a>
+                <a href="staff-application.html" class="nav-item">Staff Application</a>
+            </div>
+        </div>
+
+        <a href="https://discord.gg/5bq2EWyT4w" target="_blank" class="nav-item">Discord Link</a>
+    </nav>
+
+    <main class="main-content">
+        <h1>Staff Application</h1>
+        
+        <div class="warning-box">
+           We Are: [Currently Accepting Applications!]
+        </div>
+
+        <div class="category-section">
+            <div class="category-header">Application Link</div>
+            <div class="category-content">
+                <a href="https://forms.gle/6rW24Mc2B8FS6j6s6" class="nav-item">Staff Application</a>
+            </div>
+        </div>
+        </div>
+    </main>
+
+    <script>
+        // Background slideshow
+        const slides = document.querySelectorAll('.background-slide');
+        let currentSlide = 0;
+
+        function nextSlide() {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+
+        setInterval(nextSlide, 5000);
+
+        // Category collapse functionality
+        document.querySelectorAll('.category-header').forEach(header => {
+            header.addEventListener('click', () => {
+                header.classList.toggle('collapsed');
+                const content = header.nextElementSibling;
+                content.classList.toggle('active');
+            });
+        });
+
+        // Navigation section functionality
+        document.querySelectorAll('.nav-section-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const section = header.parentElement;
+                section.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+</html>
