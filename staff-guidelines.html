@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gacha Metaverse - Moderation Guidelines</title>
+ <style>
+        :root {
+            --p5-red: #FF0000;
+            --p5-dark-red: #8B0000;
+            --p5-black: rgba(0, 0, 0, 0.85);
+            --p5-accent: #FFD700;
+        }
+
+        body { 
+            color: #fff;
+            margin: 0;
+            font-family: system-ui, -apple-system, sans-serif;
+            position: relative;
+            min-height: 100vh;
+            background: #000;
+        }
+
+        .background-slideshow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .background-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            filter: brightness(0.4);
+        }
+
+        .background-slide.active {
+            opacity: 1;
+        }
+
+        .sidebar {
+            width: 250px;
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            background: rgba(17, 17, 17, 0.7);
+            border-right: 1px solid var(--p5-red);
+            padding: 1rem;
+            z-index: 20;
+            backdrop-filter: blur(8px);
+        }
+
+        .logo {
+            width: auto;
+            max-width: 200px;
+            height: 50px;
+            object-fit: contain;
+            margin-bottom: 1rem;
+        }
+
+        .nav-item {
+            color: #fff;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            padding: 0.5rem;
+            text-decoration: none;
+            display: block;
+            border-radius: 4px;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            color: var(--p5-red);
+            background: rgba(255, 0, 0, 0.1);
+        }
+
+        .nav-section-header {
+            padding: 0.5rem;
+            color: #fff;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 4px;
+            background: rgba(0, 0, 0, 0.5);
+            border-left: 3px solid var(--p5-red);
+        }
+
+        .nav-section-content {
+            margin-left: 1rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        .nav-section.active .nav-section-content {
+            display: block;
+        }
+
+        .main-content {
+            margin-left: 270px;
+            padding: 2rem;
+            max-width: 800px;
+        }
+
+        .content-section {
+            background: var(--p5-black);
+            margin: 1rem 0;
+            border-left: 3px solid var(--p5-red);
+            border-radius: 4px;
+            padding: 1.5rem;
+        }
+
+        hr {
+            border-color: rgba(255, 0, 0, 0.3);
+            margin: 1rem 0;
+        }
+
+        h1, h2, h3, h4, h5 {
+            color: var(--p5-red);
+        }
+
+        .rule-item {
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Background slideshow -->
+    <div class="background-slideshow">
+        <div class="background-slide active" style="background-image: url('https://personacentral.com/wp-content/uploads/2024/05/P5X-Makoto-1-scaled.jpg')"></div>
+        <div class="background-slide" style="background-image: url('https://personacentral.com/wp-content/uploads/2024/05/P5X-Makoto-2-scaled.jpg')"></div>
+        <div class="background-slide" style="background-image: url('https://personacentral.com/wp-content/uploads/2024/05/Riko-Tanemura-1-scaled.jpg')"></div>
+        <div class="background-slide" style="background-image: url('https://personacentral.com/wp-content/uploads/2024/05/Sakai-Ayaka-2.jpg')"></div>
+        <div class="background-slide" style="background-image: url('https://personacentral.com/wp-content/uploads/2024/05/Motoha-Summer-3-scaled.jpg')"></div>
+    </div>
+
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <img src="https://cdn.imgchest.com/files/7mmc9onawx7.png" alt="Logo" class="logo">
+        
+        <a href="index.html" class="nav-item">Rules</a>
+        <hr>
+
+        <div class="nav-section">
+            <div class="nav-section-header">
+                <span>Server Guidelines</span>
+                <span class="arrow">▼</span>
+            </div>
+            <div class="nav-section-content">
+                <a href="banned-links.html" class="nav-item">Banned Links</a>
+                <a href="banned-words.html" class="nav-item">Banned Words</a>
+            </div>
+        </div>
+
+        <div class="nav-section">
+            <div class="nav-section-header">
+                <span>Staff/Applications</span>
+                <span class="arrow">▼</span>
+            </div>
+            <div class="nav-section-content">
+                <a href="staff-guidelines.html" class="nav-item active">Staff Guidelines</a>
+                <a href="staff-application.html" class="nav-item">Staff Application</a>
+            </div>
+        </div>
+
+        <a href="https://discord.gg/5bq2EWyT4w" target="_blank" class="nav-item">Discord Link</a>
+    </nav>
+
+    <!-- Main content -->
+    <main class="main-content">
+        <h1>Gacha Metaverse Moderation Guidelines</h1>
+        <div class="content-section">
+            <div class="overview">
+                <h2>Overview</h2>
+                <p>This document serves as a supplement to our rules. It is intended to provide guidelines and advice for our moderation team, and a degree of transparency for any of our users curious about how our team operates internally.</p>
+                <p>Our full server rules can be found right here and in the rules channel</p>
+            </div>
+
+            <div class="introduction">
+                <h2>Introduction</h2>
+                <p>I'd like to firstly say thank you for taking the time out of your day, nearly every day, to continually help make Gacha Metaverse safe for all users. It may be hard at times, but please know that your volunteer service is impacting the lives of many individuals. It is with hope that we are model users among them and provide guidance when necessary, and help users interact or mature along the way.</p>
+                <p>I hope you enjoy our little corner of Discord, and enjoy the time, friends, and activities for which our server holds.</p>
+                <p>Cheers!<br>- McBurn</p>
+            </div>
+
+            <div class="moderation-guide">
+                <h2>Moderation Guide</h2>
+                <h3>Tools and Infractions</h3>
+                <p>Let's start by addressing the actions we have available as moderators. For this, a general system of infraction escalation is laid out below:</p>
+                <ol>
+                    <li>Formal or informal warning</li>
+                    <li>1 to 6 hour mute</li>
+                    <li>12 to 24 hour mute</li>
+                    <li>3 day to 1 week mute</li>
+                    <li>Permanent mute or community ban</li>
+                </ol>
+
+                <p class="note">Note that these steps intentionally leave room for adjustment based on the situation. We trust our moderators to take the steps they deem appropriate to handle rule violations.</p>
+
+                <div class="discretion-section">
+                    <h4>Aspects left to moderator discretion:</h4>
+                    
+                    <h5>Formal or informal warning:</h5>
+                    <p>When possible, we encourage our moderators to handle a situation "off the record", such as asking a user to move channels or stop spamming. A formal warning with Ouranos should be used when a user's rule violation should be seen by other moderators in the case that they continue to break our rules.</p>
+
+                    <h5>Mute duration:</h5>
+                    <p>Mute duration is left up to moderator discretion, although our progression system outlines recommended durations relative to the severity of the other actions. For example, if a user was muted for 6 hours for spam, then continues to spam in chat, bumping the mute up to 12 hours the next time would be a good idea.</p>
+
+                    <h5>Permanent mute vs. community ban:</h5>
+                    <p>These two actions have the same effective result in that a user is unable to participate in our community. However, a ban will be more effective since it also prevents the user from contacting any of our members via DM and IP bans them from our server. With this in mind, you should aim to favor a ban when we want these two additional features. Generally, when infractions get this far, we ban the user.</p>
+                </div>
+            </div>
+
+            <div class="rules-section">
+                <h2>Rules</h2>
+                <p>Here's an outline of our community's rules:</p>
+                <ul class="rule-list">
+                    <li>Rule 1: Adherence to Discord TOS</li>
+                    <li>Rule 2: Adherence to a fully SFW community</li>
+                    <li>Rule 3: Harassment and trolling</li>
+                    <li>Rule 4: Inappropriate user profiles</li>
+                    <li>Rule 5: Chat coherence, stability, and understandability</li>
+                    <li>Rule 6: Anti-spam</li>
+                    <li>Rule 7: Anti-voice-spam</li>
+                    <li>Rule 8: Role mentions</li>
+                    <li>Rule 9: Advertisement</li>
+                    <li>Rule 10: Moderator Discretion</li>
+                </ul>
+
+                <div class="rules-details">
+                                    <div class="rules-details">
+                    <div class="rule-item">
+                        <h3>Rule 1: Adherence to Discord TOS</h3>
+                        <p>We must abide by and enforce Discord's ToS and Community Guidelines. For us, these are the main things to pick out:</p>
+                        <ul>
+                            <li>Users must be 13 years old or older; no exceptions.</li>
+                            <li>Users must not distribute virus files, malware, or exploits through the service.</li>
+                        </ul>
+                        <p class="enforcement">If a user is found to be breaking the ToS or Community Guidelines, we are required to ban and report the user to Discord.</p>
+                    </div>
+
+                    <div class="rule-item">
+                        <h3>Rule 2: NSFW Content</h3>
+                        <p>Our server does not contain any NSFW channels, and as such absolutely no NSFW content is allowed to be posted.</p>
+                        <ul>
+                            <li>Nudity, porn, pedophilic, or gore content: ban and report</li>
+                            <li>Lewd or sexually suggestive content, sexual roleplaying, or suggestive audio content: 12-24 hour mute or ban</li>
+                            <li>Non-sexual forms of NSFW/disturbing content: 3-6 hour mute</li>
+                        </ul>
+                        <p>This is in no way exhaustive, and there can be instances of NSFW content that does not involve one of the above. For these, apply your best judgement.</p>
+                    </div>
+
+                    <div class="rule-item">
+                        <h3>Rule 3: Harassment and trolling</h3>
+                        <h4>General bullying/harassment guidelines:</h4>
+                        <ul>
+                            <li>Encouraging self-harm or suicide: ban and report</li>
+                            <li>Racism, sexism, other "-isms": ban</li>
+                            <li>Trolling: 6-12 hour mute</li>
+                            <li>Heated argument: 1-3 hour mute</li>
+                        </ul>
+                        <p>Racial or other slurs: No action necessary if caught by the filter. If the user is spamming the filter (or getting around the filter), the user should be banned.</p>
+                    </div>
+
+                    <div class="rule-item">
+                        <h3>Rule 4: Inappropriate user profiles</h3>
+                        <p>Users should not have any NSFW, disturbing, or excessively offensive content in their profiles. This includes their username, nickname, profile picture, and custom status.</p>
+                        <p>Inappropriate content found in a user's profile should be treated the same way that such content would be treated if it were sent in one of our channels.</p>
+                    </div>
+
+                    <div class="rule-item">
+                        <h3>Rule 5: Chat coherence, stability, and understandability</h3>
+                        <p>This rule mainly aims at keeping our chats engaging, friendly, and inclusive. If a user is actively trying to derail or interrupt a conversation, warn first, and mute if necessary. This includes when moderator intervention has occurred, and the offenders were told to "stop bringing it up".</p>
+                        <p>This rule also pertains to the language of which our chats are moderated by. We are all volunteers and not everyone is bi- or tri-lingual. Because of this gap, we must make sure that lengthy stretches of chat and conversation remain in English. Common foreign phrases are allowed, but entire conversations are not.</p>
+                    </div>
+
+                    <div class="rule-item">
+                        <h3>Rule 6: Spam</h3>
+                        <p>Spam can be defined as unwanted or repeated nonsensical messages, bot commands, pings, copy-pastas, and images.</p>
+                        <p>Outside general channels, any spam should result in a warning, and a 1-6 hour mute if necessary.</p>
+                    </div>
+
+                    <div class="rule-item">
+                        <h3>Rule 7: Voice-spam</h3>
+                        <p>Voice spam can be defined as loud, intrusive, disorienting, or unwanted noises in our voice chats. If a trouble user joins the session and spams, mute for 1-6 hours as you would with spam in chat.</p>
+                    </div>
+
+                    <div class="rule-item">
+                        <h3>Rule 8: Abusing mentions</h3>
+                        <p>Users should refrain from unnecessarily mentioning other users or server moderators in chat. If a user is pinging another user repeatedly for no reason, apply a 1-6 hour mute.</p>
+                        <p>The @Moderator role ping should only be used in cases where moderator intervention is needed but no mods appear to be available. If this tag is used repeatedly without any apparent reason, mute for 12-24 hours.</p>
+                    </div>
+
+                    <div class="rule-item">
+                        <h3>Rule 9: Advertisement</h3>
+                        <p>Our bots actively remove server invites that are not part of our community, sponsorships, or partnerships. No action is needed if the bot picks it out. If a user is spamming or bypassing our advertisement filter, take appropriate action.</p>
+                        <p>If the user is sending server invites via DM unsolicited then the user should be banned.</p>
+                        <p>Regarding self-promotion, services such as YouTube, Twitch, Twitter, Facebook, Instagram, Snapchat, and other social media advertisement is not allowed in our server. Blatant self-promotion should result in a 1-6 hour mute.</p>
+                    </div>
+
+                    <div class="rule-item">
+                        <h3>Rule 10: Moderator Discretion</h3>
+                        <p>Moderation is an inexact science, so much is left up to our own discretion. You will inevitably encounter "rule lawyers" who try to bend the rules or exploit grey areas in their favor. This rule is intended as a catch-all for handling these situations.</p>
+                        <p>Use your judgement on the action necessary and cite rule 10 if asked. If you have a question or are unsure, ask. If you are alone, we trust your judgement.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="guidelines">
+                <h2>General Guidelines</h2>
+                <h3>Lead by Example</h3>
+                <p>Keep in mind that, as a moderator in Gacha Metaverse, you represent our server and our moderation team. Our moderators should strive to be role models both within and outside our community.</p>
+                
+                <p>Our moderators are not "immune" to the rules, in fact you should hold yourselves to higher standards than you do our users. Users learn how to behave from the community moderators. A toxic moderation team will lead to a toxic community, and a friendly, dedicated moderation team will also be reflected in their community. Strive to be friendly, welcoming, and helpful at all times. When dealing with problem users, be calm and professional.</p>
+            </div>
+        </div>
+
+        <div class="changelog-section">
+            <h2>Changelog</h2>
+            <div class="changelog-item">
+                <h3>Revision 1</h3>
+                <p>Initial release</p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Background slideshow
+        const slides = document.querySelectorAll('.background-slide');
+        let currentSlide = 0;
+
+        function nextSlide() {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+
+        setInterval(nextSlide, 5000);
+
+        // Navigation functionality
+        document.querySelectorAll('.nav-section-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const section = header.parentElement;
+                section.classList.toggle('active');
+            });
+        });
+
+        // Navigation links
+        document.querySelectorAll('.nav-item').forEach(link => {
+            link.addEventListener('click', function(e) {
+                if (this.getAttribute('href') && !this.getAttribute('href').startsWith('http')) {
+                    e.preventDefault();
+                    window.location.href = this.getAttribute('href');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

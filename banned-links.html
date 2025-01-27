@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banned Links</title>
+    <style>
+        :root {
+            --p5-red: #FF0000;
+            --p5-dark-red: #8B0000;
+            --p5-black: rgba(0, 0, 0, 0.85);
+            --p5-accent: #FFD700;
+        }
+        body { 
+            color: #fff;
+            margin: 0;
+            font-family: system-ui, -apple-system, sans-serif;
+            position: relative;
+            min-height: 100vh;
+        }
+        .background-slideshow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            filter: blur(4px);
+        }
+        .background-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            filter: brightness(0.4);
+        }
+        .background-slide.active {
+            opacity: 1;
+        }
+        .sidebar {
+            width: 250px;
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            background: rgba(17, 17, 17, 0.7);
+            border-right: 1px solid var(--p5-red);
+            padding: 1rem;
+            z-index: 20;
+            backdrop-filter: blur(8px);
+        }
+        .logo {
+            width: auto;
+            max-width: 200px;
+            height: 50px;
+            margin-bottom: 1rem;
+            object-fit: contain;
+        }
+        .nav-item {
+            color: #fff;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            padding: 0.5rem;
+            text-decoration: none;
+            display: block;
+            border-radius: 4px;
+        }
+        .nav-item:hover, .nav-item.active {
+            color: var(--p5-red);
+            background: rgba(255, 0, 0, 0.1);
+        }
+        .nav-item::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--p5-red);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+        .nav-item:hover::after {
+            transform: translateX(0);
+        }
+        .nav-section-header {
+            padding: 0.5rem;
+            color: #fff;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 4px;
+            background: rgba(0, 0, 0, 0.5);
+            border-left: 3px solid var(--p5-red);
+            transition: all 0.3s ease;
+        }
+        .nav-section-header:hover {
+            background: rgba(255, 0, 0, 0.2);
+            color: var(--p5-red);
+        }
+        .nav-section-content {
+            margin-left: 1rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+        .nav-section.active .nav-section-content {
+            display: block;
+        }
+        .main-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            margin-left: 270px;
+        }
+        .info-box {
+            background: rgba(139, 65, 0, 0.5);
+            border: 1px solid var(--p5-accent);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .info-box::before {
+            content: "ℹ";
+            font-size: 1.5rem;
+            color: var(--p5-accent);
+        }
+        .category-section {
+            background: var(--p5-black);
+            margin: 1rem 0;
+            border-left: 3px solid var(--p5-red);
+            border-radius: 4px;
+            padding: 1rem;
+        }
+        .category-header {
+            color: #fff;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        .category-content {
+            line-height: 1.6;
+        }
+        hr {
+            border-color: rgba(255, 0, 0, 0.3);
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="background-slideshow">
+        <div class="background-slide active" style="background-image: url('https://personacentral.com/wp-content/uploads/2024/05/P5X-Makoto-1-scaled.jpg')"></div>
+        <div class="background-slide" style="background-image: url('https://personacentral.com/wp-content/uploads/2024/05/P5X-Makoto-2-scaled.jpg')"></div>
+        <div class="background-slide" style="background-image: url('https://personacentral.com/wp-content/uploads/2024/05/Riko-Tanemura-1-scaled.jpg')"></div>
+        <div class="background-slide" style="background-image: url('https://personacentral.com/wp-content/uploads/2024/05/Sakai-Ayaka-2.jpg')"></div>
+        <div class="background-slide" style="background-image: url('https://personacentral.com/wp-content/uploads/2024/05/Motoha-Summer-3-scaled.jpg')"></div>
+    </div>
+
+    <nav class="sidebar">
+        <img src="https://cdn.imgchest.com/files/7mmc9onawx7.png" alt="NTTS Logo" class="logo">
+        
+        <a href="index.html" class="nav-item">Rules</a>
+        <hr>
+
+        <div class="nav-section">
+            <div class="nav-section-header">
+                <span>Server Guidelines</span>
+                <span class="arrow">▼</span>
+            </div>
+            <div class="nav-section-content">
+                <a href="banned-links.html" class="nav-item active">Banned Links</a>
+                <a href="banned-words.html" class="nav-item">Banned Words</a>
+            </div>
+        </div>
+
+        <div class="nav-section">
+            <div class="nav-section-header">
+                <span>Staff/Applications</span>
+                <span class="arrow">▼</span>
+            </div>
+            <div class="nav-section-content">
+                <a href="staff-guidelines.html" class="nav-item">Staff Guidelines</a>
+                <a href="staff-application.html" class="nav-item">Staff Application</a>
+            </div>
+        </div>
+
+        <a href="https://discord.gg/5bq2EWyT4w" target="_blank" class="nav-item">Discord Link</a>
+    </nav>
+
+    <main class="main-content">
+        <h1>Banned Links</h1>
+        
+        <p>This list contains the websites that are prohibited to link to in the server. Similar to the banned words, this may change at any time without an announcement.</p>
+
+        <div class="info-box">
+            Users under level 5 are not able to send any links. This is to prevent suspicious links being sent by new accounts.
+        </div>
+
+        <div class="category-section">
+            <div class="category-header">Banned TLDs</div>
+            <div class="category-content">
+                <p>These top level domains are banned. This means that you cannot send any URLs that end with these extensions. This is because most of these domains are either free or cheap to register, and as such are frequently used for scams.</p>
+                <p>*.cf, *.ga, *.gq, *.ml, *.nl, *.nz, *.ml, *.tk</p>
+            </div>
+        </div>
+
+        <div class="category-section">
+            <div class="category-header">Banned Sites</div>
+            <div class="category-content">
+                <p>Sending links from any of these domains is prohibited.</p>
+                <p>discord.com/invite/, discord.gg/, discord.gift, opensea.io, pornhub.com, sellix.io, t.me, telegram.com, telegram.me, temu.com</p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Background slideshow
+        const slides = document.querySelectorAll('.background-slide');
+        let currentSlide = 0;
+
+        function nextSlide() {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+
+        setInterval(nextSlide, 5000);
+
+        // Navigation section functionality
+        document.querySelectorAll('.nav-section-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const section = header.parentElement;
+                section.classList.toggle('active');
+            });
+        });
+
+        // Page navigation fix
+        document.querySelectorAll('.nav-item').forEach(link => {
+            link.addEventListener('click', function(e) {
+                if (this.getAttribute('href') && !this.getAttribute('href').startsWith('http')) {
+                    e.preventDefault();
+                    window.location.href = this.getAttribute('href');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
