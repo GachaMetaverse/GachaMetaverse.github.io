@@ -1,0 +1,620 @@
+<div class="background-slideshow">
+    <div class="background-slide active" style="background-image: url('https://personacentral.com/wp-content/uploads/2024/05/P5X-Makoto-1-scaled.jpg')"></div>
+    <div class="background-slide" style="background-image: url('https://personacentral.com/wp-content/uploads/2024/05/P5X-Makoto-2-scaled.jpg')"></div>
+    <div class="background-slide" style="background-image: url('https://personacentral.com/wp-content/uploads/2024/05/Riko-Tanemura-1-scaled.jpg')"></div>
+    <div class="background-slide" style="background-image: url('https://personacentral.com/wp-content/uploads/2024/05/Sakai-Ayaka-2.jpg')"></div>
+    <div class="background-slide" style="background-image: url('https://personacentral.com/wp-content/uploads/2024/05/Motoha-Summer-3-scaled.jpg')"></div>
+</div>
+
+<script>
+    // Background slideshow
+    const slides = document.querySelectorAll('.background-slide');
+    let currentSlide = 0;
+
+    function nextSlide() {
+        slides[currentSlide].classList.remove('active');
+        currentSlide = (currentSlide + 1) % slides.length;
+        slides[currentSlide].classList.add('active');
+    }
+
+    // Change slide every 10 seconds
+    setInterval(nextSlide, 5000);
+</script><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NTTS Rules</title>
+    <style>
+        :root {
+            --p5-red: #FF0000;
+            --p5-dark-red: #8B0000;
+            --p5-black: rgba(0, 0, 0, 0.85);
+            --p5-accent: #FFD700;
+        }
+        body { 
+            color: #fff;
+            margin: 0;
+            padding-left: 250px;
+            font-family: system-ui, -apple-system, sans-serif;
+            position: relative;
+            min-height: 100vh;
+        }
+        .background-slideshow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+			filter: blur(4px);
+        }
+        .background-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            filter: blur(4px) brightness(0.4);
+        }
+        .background-slide.active {
+            opacity: 1;
+        }
+        .sidebar {
+            background: var(--p5-black);
+            border-right: 2px solid var(--p5-red);
+        }
+        .nav-item {
+            color: #fff;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .nav-item:hover, .nav-item.active {
+            color: var(--p5-red);
+            background: rgba(255, 0, 0, 0.1);
+        }
+        .nav-item::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--p5-red);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+        .nav-item:hover::after {
+            transform: translateX(0);
+        }
+        .nav-section-header {
+            color: #fff;
+            background: rgba(0, 0, 0, 0.5);
+            border-left: 3px solid var(--p5-red);
+            transition: all 0.3s ease;
+        }
+        .nav-section-header:hover {
+            background: rgba(255, 0, 0, 0.2);
+            color: var(--p5-red);
+        }
+        .rule-section {
+            background: var(--p5-black);
+            border-left: 3px solid var(--p5-red);
+            transition: all 0.3s ease;
+        }
+        .rule-header {
+            color: #fff;
+            transition: all 0.3s ease;
+        }
+        .rule-header:hover {
+            color: var(--p5-red);
+            background: rgba(255, 0, 0, 0.1);
+        }
+        .toc {
+            background: var(--p5-black);
+            border-left: 3px solid var(--p5-red);
+        }
+        .toc a {
+            color: #fff;
+            transition: all 0.3s ease;
+        }
+        .toc a:hover, .toc a.active {
+            color: var(--p5-red);
+            padding-left: 10px;
+        }
+        .warning-box {
+            background: rgba(139, 0, 0, 0.5);
+            border: 1px solid var(--p5-red);
+        }
+        @media (max-width: 768px) {
+            body {
+                padding-left: 0;
+            }
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+            .sidebar.active {
+                transform: translateX(0);
+            }
+            .main-content {
+                padding-right: 1rem !important;
+            }
+            .toc {
+                display: none;
+            }
+        }
+.sidebar {
+    width: 250px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    background: rgba(17, 17, 17, 0.7);
+    border-right: 1px solid #333;
+    padding: 1rem;
+    z-index: 20;
+    backdrop-filter: blur(8px);
+}
+        .logo {
+            width: 100%;
+            max-width: 200px;
+            height: auto;
+            margin-bottom: 1rem;
+        }
+        .nav-item {
+            padding: 0.5rem;
+            color: #666;
+            text-decoration: none;
+            display: block;
+            border-radius: 4px;
+        }
+        .nav-item:hover, .nav-item.active {
+            color: #3b82f6;
+            background: rgba(59, 130, 246, 0.1);
+        }
+        .nav-section-header {
+            padding: 0.5rem;
+            color: #666;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 4px;
+        }
+        .nav-section-header:hover {
+            color: #3b82f6;
+            background: rgba(59, 130, 246, 0.1);
+        }
+        .nav-section-header .arrow {
+            transition: transform 0.2s;
+        }
+        .nav-section.collapsed .arrow {
+            transform: rotate(-90deg);
+        }
+        .nav-section-content {
+            margin-left: 1rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+        .nav-section.active .nav-section-content {
+            display: block;
+        }
+        .nav-subitem {
+            padding: 0.5rem;
+            color: #666;
+            text-decoration: none;
+            display: block;
+            border-radius: 4px;
+            margin-bottom: 0.25rem;
+        }
+        .nav-subitem:hover, .nav-subitem.active {
+            color: #3b82f6;
+            background: rgba(59, 130, 246, 0.1);
+        }
+        .main-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            padding-right: 300px;
+        }
+        .toc {
+            position: fixed;
+            right: 20px;
+            top: 20px;
+            width: 250px;
+            background: #111;
+            padding: 1rem;
+            border-radius: 8px;
+            z-index: 10;
+        }
+        .toc a {
+            display: block;
+            color: #fff;
+            text-decoration: none;
+            padding: 0.25rem 0;
+            font-size: 14px;
+        }
+        .toc a:hover, .toc a.active {
+            color: #ff0000;
+        }
+        .rule-section {
+            background: #000000;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+        .rule-header {
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+        .rule-header::before {
+            content: "▼";
+            display: inline-block;
+            margin-right: 0.5rem;
+            transition: transform 0.2s;
+        }
+        .rule-header.collapsed::before {
+            transform: rotate(-90deg);
+        }
+        .rule-content {
+            padding: 1rem;
+            background: rgba(0,0,0,0.2);
+            display: none;
+        }
+        .rule-content.active {
+            display: block;
+        }
+        .warning-box {
+            background: #3e2723;
+            border: 1px solid #795548;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+        .warning-box::before {
+            content: "⚠";
+            margin-right: 0.5rem;
+        }
+        .note {
+            font-style: italic;
+            color: #fff;
+            margin-top: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+     <nav class="sidebar">
+        <img src="https://cdn.imgchest.com/files/7mmc9onawx7.png" alt="NTTS Logo" class="logo">
+        
+        <a href="index.html" class="nav-item">Rules</a>
+        <hr>
+
+        <div class="nav-section">
+            <div class="nav-section-header">
+                <span>Server Guidelines</span>
+                <span class="arrow">▼</span>
+            </div>
+            <div class="nav-section-content">
+                <a href="banned-links.html" class="nav-item active">Banned Links</a>
+                <a href="banned-words.html" class="nav-item">Banned Words</a>
+            </div>
+        </div>
+
+        <div class="nav-section">
+            <div class="nav-section-header">
+                <span>Staff/Applications</span>
+                <span class="arrow">▼</span>
+            </div>
+            <div class="nav-section-content">
+                <a href="staff-guidelines.html" class="nav-item">Staff Guidelines</a>
+                <a href="staff-application.html" class="nav-item">Staff Application</a>
+            </div>
+        </div>
+
+        <a href="https://discord.gg/5bq2EWyT4w" target="_blank" class="nav-item">Discord Link</a>
+    </nav>
+
+
+    <div class="toc">
+        <h2 class="text-lg font-bold mb-4">On This Page</h2>
+        <div class="toc-links">
+            <a href="#1" class="active">1. Follow Discord's Terms of Service and Community Guidelines</a>
+            <a href="#2">2. No NSFW Content / Gore / Explicit Behavior</a>
+            <a href="#3">3. Be Respectful to All Members</a>
+            <a href="#4">4. Do not Spam / Be a Nuisance</a>
+            <a href="#5">5. English is Preferred, other languages are allowed</a>
+            <a href="#6">6. Discord Profiles</a>
+            <a href="#7">7. No Advertising</a>
+            <a href="#8">8. Do not Find Loopholes in the Rules</a>
+        </div>
+    </div>
+
+    <main class="main-content">
+        <h1 class="text-4xl font-bold mb-8">Rules</h1>
+
+        <section id="1">
+            <h2 class="text-2xl font-bold mb-4">1. Follow Discord's Terms of Service and Community Guidelines</h2>
+            <div class="warning-box">
+                This is a catch-all rule. We base our rules on these guidelines. Violating these rules will lead to a permanent ban. We do allow client modifications such as BetterDiscord and Vencord. You are welcome to talk about them.
+            </div>
+
+            <div class="rule-section">
+                <div class="rule-header">1.1. You must be at least 13 years old to be on Discord</div>
+                <div class="rule-content">
+                    You must meet the minimum age requirement for Discord within your country. Claiming to be younger, even as a joke, will result in a ban.
+                </div>
+            </div>
+
+            <div class="rule-section">
+                <div class="rule-header">1.2. Do not use self-bots, nitro snipers, auto changing statuses, API exploits, or do anything that harms Discord's servers</div>
+                <div class="rule-content">
+                    If we see that you are doing one of these, you will be banned for violating Discord's Terms of Service.
+                </div>
+            </div>
+
+            <div class="rule-section">
+                <div class="rule-header">1.3. Do not engage or joke about organizing raids, doxxes, or swatting</div>
+                <div class="rule-content">
+                    Any threat or joke about raiding, doxxing, or swatting someone will result in a permanent ban. Sharing doxxing information is also considered a bannable offense, even if you are trying to make mods aware of it. When in doubt, create a ticket.
+                    <div class="note">Note: You can talk about how a server got raided or someone got mass harassed. We just ask you to not encourage the behavior.</div>
+                </div>
+            </div>
+
+            <div class="rule-section">
+                <div class="rule-header">1.4. Do not use Discord to scam or send malware / viruses / malicious links</div>
+                <div class="rule-content">
+                    Sending viruses or malware goes against Discord's Terms of Service, and we will ban you if we find out you have sent or participated in them in or out of the server. For the sake of simplicity, IP grabbers are also not allowed.
+                </div>
+            </div>
+
+            <div class="rule-section">
+                <div class="rule-header">1.5 Do not leak private information</div>
+                <div class="rule-content">
+                    We do not allow any identifiable information to be sent to the server. This includes but is not limited to: IPs, addresses, phone numbers, legal names, or government issued IDs. Any other identifiable information is also not allowed on the server. Giving out fake information as a joke may potentially also result in a ban.
+                </div>
+            </div>
+
+            <div class="rule-section">
+                <div class="rule-header">1.6 No Recording of Voice Channels</div>
+                <div class="rule-content">
+                    Recording VCs without consent is frowned upon in the server, therefore we do not allow it. We also abide by California state law, and so did you upon accepting Discord's privacy policy. You need consent from everyone in the VC if you are going to record the VC. The only exceptions to this rule are the stages hosted by the owners, which we do allow.
+                </div>
+            </div>
+        </section>
+
+        <section id="2">
+            <h2 class="text-2xl font-bold mb-4">2. No NSFW Content / Gore / Explicit Behavior</h2>
+            <div class="rule-section">
+                <div class="rule-header">2.1. Do not talk about NSFW content</div>
+                <div class="rule-content">
+                    We have a zero tolerance policy for any sort of NSFW content. NSFW content is any content meant to sexualize or inflict arousal. This includes but is not limited to: jokes, memes, conversation, and pictures.
+                </div>
+            </div>
+
+            <div class="rule-section">
+                <div class="rule-header">2.2. No NSFL or gore content</div>
+                <div class="rule-content">
+                    NSFL (Not Safe For Life) are videos, pictures, or conversation that involves but is not limited to gore and any other topics that intend to shock or disturb members. Any discussion about these topics will result in severe punishment.
+                </div>
+            </div>
+
+            <div class="rule-section">
+                <div class="rule-header">2.3. Do not e-date or try to flirt with someone</div>
+                <div class="rule-content">
+                    We have a zero tolerance policy on e-dating and flirting, and since there are members of *all* ages that can join, this is especially not allowed. Members who try to converse or send media to other members with the intent of flirting/hitting on/rizzing up, whether a joke or not, will be punished. This also includes coming into the server with the intent of looking for people to flirt with or baiting people (“I like older men” “Any cute girls here?”).
+                </div>
+            </div>
+
+            <div class="rule-section">
+                <div class="rule-header">2.4. Do not send any bait or cropped or suggestive NSFW content</div>
+                <div class="rule-content">
+                    Photos or memes that appear to look like NSFW, NSFL, or gore, are not allowed on the server (optical illusions, blurry eye trick, etc.), or in server profiles. This includes cropped pictures, blurry pictures, and vague pictures. Media with the intent of looking suggestive or implying NSFW are also not allowed.
+                </div>
+            </div>
+
+            <div class="rule-section">
+                <div class="rule-header">2.5. Do not send any form of pornography, nudity, or gore</div>
+                <div class="rule-content">
+                    Any form of media that contains/implies NSFW, will result in a permanent ban. If you wouldn’t send it to your grandmother, do not send it here.
+                </div>
+            </div>
+
+            <div class="rule-section">
+                <div class="rule-header">2.6. Do not sexualize minors or joke about it</div>
+                <div class="rule-content">
+                    We have a zero tolerance policy for any jokes, comments, or any other form of media that sexualizes a minor and you will be heavily warned or banned immediately for it. This also includes if you yourself are a minor and are calling another minor hot. We have a zero tolerance policy for it, and you will be banned with no chance of appeal. This rule also floats under Rule 2.3. If you flirt with someone and they end up being a minor, you will be banned.
+                </div>
+            </div>
+        </section>
+
+        <section id="3">
+            <h2 class="text-2xl font-bold mb-4">3. Be Respectful to All Members</h2>
+            <div class="rule-section">
+                <div class="rule-header">3.1. Do not troll, be toxic, cause arguments, or be rude to members</div>
+                <div class="rule-content">
+                    Causing disruptions in chat, being a nuisance to members, and generally being negative are all ways to get punished. We expect you to be respectful to other members, avoid arguments, and step away when you get angry. If you have the inability to be a kind, respectful member, you will be punished. If you wish to argue with someone or discuss sensitive topics, please go to DMs or do not do it at all.
+                </div>
+            </div>
+
+            <div class="rule-section">
+                <div class="rule-header">3.2 Do not send death threats, be racist, sexist, or engage in hate speech</div>
+                <div class="rule-content">
+                    We have a zero tolerance for any sort of hate speech. This includes racism, sexism, homophobia, transphobia, etc. Comments or jokes that look like hate speech will be punished accordingly. And yes, having a swastika on your profile is considered to be xenophobic and you will be banned for it. Death threats, including telling someone to “off” themselves, will also result in punishment. This includes threats that are meant to be jokes.
+                </div>
+            </div>
+
+            <div class="rule-section">
+                <div class="rule-header">3.3 Avoid Sensitive Topics</div>
+                <div class="rule-content">
+                    We want to try and respect everyone’s opinions. If you do happen to talk about a sensitive topic and drama does ensue, moderative actions will be handed out. Some examples of sensitive topics include:
+					
+					<div class="note">Politics</div>
+					<div class="note">Religion</div>
+					<div class="note">Sexuality</div>
+					<div class="note">Gender</div>
+					<div class="note">War</div>
+                </div>
+            </div>
+
+            <div class="rule-section">
+                <div class="rule-header">3.4 Do not ragebait</div>
+                <div class="rule-content">
+                    Intentionally asking controversial questions or responding to members with the intent to cause arguments or anger members will result in punishment. Whether a member had the intent to rage bait will be up to the discretion of moderators.
+                </div>
+            </div>
+        </section>
+
+        <section id="4">
+            <h2 class="text-2xl font-bold mb-4">4. Do not Spam / Be a Nuisance</h2>
+            <div class="rule-section">
+                <div class="rule-header">4.1. Do not Spam or Flood in VC or Chat</div>
+                <div class="rule-content">
+                    Spamming any sort of media, including emotes and reactions, are prohibited. Spamming also includes pinging people without a good reason, excessive posting in forum channels, and creating numerous tickets in a short period of time. Spamming in VC includes: excessive use of soundboards, screaming into the mic, join/leaving quickly, and voice changers/TTS that irritate members. Sending one singular message meant to fill up the chat is called flooding and is also considered as spam. Messaging chaining, where multiple members all copy and paste the same message, is also considered spamming.
+                </div>
+            </div>
+
+            <div class="rule-section">
+                <div class="rule-header">4.2. Do not be annoying</div>
+                <div class="rule-content">
+                    There is no cut and dry definition of annoying. If numerous people are clearly irritated and annoyed with you, you are probably the issue, and you need to find a different topic to talk about. Trying to cause drama, making numerous members uncomfortable, and being a general annoyance will result in punishment.
+                </div>
+            </div>
+
+            <div class="rule-section">
+                <div class="rule-header">4.3. Do not send loud/bright media</div>
+                <div class="rule-content">
+                    We do not allow ear-rape media or media that triggers people with photosensitivity issues.
+                </div>
+            </div>
+
+            <div class="rule-section">
+                <div class="rule-header">4.4. No Mini-Modding</div>
+                <div class="rule-content">
+                    Mini-modding (also known as backseat moderating) is correcting someone’s behavior when you are in fact not a moderator. Examples of mini-modding include:
+<div class="note">1. Threatening to punish someone for breaking the rules</div>
+<div class="note">2. Disagreeing with appropriate moderator actions</div>
+<div class="note">3. Actively witch hunting members in order to get them punished</div>
+                </div>
+            </div>
+
+            <div class="rule-section">
+                <div class="rule-header">4.5. Do not bypass Automod</div>
+                <div class="rule-content">
+                    Do not attempt to circumvent automated moderation systems.
+                </div>
+            </div>
+        </section>
+
+        <section id="5">
+			<h2 class="text-2xl font-bold mb-4">5. English is Preferred, other languages are allowed</h2>
+            <p class="mb-4">While we do prefer that English is used, you may use any language that you wish, so long as it is properly used and not to annoy others. Also, if a channel is made for a certain language, please make sure to use it if possible.</p>
+        </section>
+
+        <section id="6">
+            <h2 class="text-2xl font-bold mb-4">6. Discord Profiles</h2>
+            <div class="rule-section">
+                <div class="rule-header">6.1. Your Discord Profile must adhere to our rules</div>
+                <div class="rule-content">
+                    All profile elements must follow server guidelines.
+                </div>
+            </div>
+
+            <div class="rule-section">
+                <div class="rule-header">6.2. No Impersonation</div>
+                <div class="rule-content">
+                    Do not pretend to be someone else.
+                </div>
+            </div>
+        </section>
+
+        <section id="7">
+            <h2 class="text-2xl font-bold mb-4">7. No Advertising</h2>
+            <p class="mb-4">These rules apply for anyone sending a discord invite, link to their social media, or referral links to a platform.</p>
+            <div class="rule-section">
+                <div class="rule-header">7.1. Do not DM advertise</div>
+                <div class="rule-content">
+                    Do not send promotional messages via direct messages.
+                </div>
+            </div>
+
+            <div class="rule-section">
+                <div class="rule-header">7.2. Do not Advertise through or on the server</div>
+                <div class="rule-content">
+                    No promotional content allowed in server channels.
+                </div>
+            </div>
+        </section>
+
+        <section id="8">
+            <h2 class="text-2xl font-bold mb-4">8. Do not Find Loopholes in the Rules</h2>
+            <p class="mb-4">Intentionally bending the rules and trying to find loopholes in the rules will result in moderative action. Not every rule is clear-cut and perfectly defined, so avoid trying to prove otherwise. If you feel like you have been treated unfairly by a Moderator, please report it to Lavernie. If you feel like you have been treated unfairly by an Admin+, DM No Text To Speech.</p>
+        </section>
+    </main>
+
+    <script>
+        document.querySelectorAll('.nav-section-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const section = header.parentElement;
+                section.classList.toggle('active');
+                section.classList.toggle('collapsed');
+            });
+        });
+
+        document.querySelectorAll('.nav-subitem').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const url = link.getAttribute('href');
+                fetch(url)
+                    .then(response => response.text())
+                    .then(html => {
+                        document.querySelector('.main-content').innerHTML = html;
+                    })
+                    .catch(error => {
+                        console.error('Error loading page:', error);
+                    });
+
+                document.querySelectorAll('.nav-subitem').forEach(item => {
+                    item.classList.remove('active');
+                });
+                link.classList.add('active');
+            });
+        });
+
+        document.querySelectorAll('.rule-header').forEach(header => {
+            header.addEventListener('click', () => {
+                header.classList.toggle('collapsed');
+                const content = header.nextElementSibling;
+                content.classList.toggle('active');
+            });
+        });
+
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    document.querySelectorAll('.toc a').forEach(link => {
+                        if (link.getAttribute('href') === '#' + entry.target.id) {
+                            link.classList.add('active');
+                        } else {
+                            link.classList.remove('active');
+                        }
+                    });
+                }
+            });
+        }, { 
+            rootMargin: '-80px 0px -80% 0px'
+        });
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
