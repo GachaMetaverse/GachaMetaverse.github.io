@@ -47,7 +47,50 @@
         .background-slide.active {
             opacity: 1;
         }
+@media (max-width: 768px) {
+    body {
+        padding-left: 0;
+        width: 100%;
+    }
+    
+    .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+    }
+    
+    .sidebar.active {
+        transform: translateX(0);
+    }
+    
+    .main-content {
+        margin-left: 0;
+        margin-right: 0;
+        padding: 1rem;
+        max-width: 100%;
+        width: 100%;
+    }
 
+    .content-section {
+        margin: 0.5rem;
+        padding: 1rem;
+        width: auto;
+        /* Remove any fixed widths */
+    }
+
+    .rule-item {
+        width: auto;
+        margin: 1rem 0;
+        padding: 1rem;
+    }
+
+    /* Ensure text containers use full width */
+    .overview, .introduction, .moderation-guide, 
+    .rules-section, .guidelines, .changelog-section {
+        width: 100%;
+        padding: 0;
+        margin: 1rem 0;
+    }
+}
         .sidebar {
             width: 250px;
             position: fixed;
@@ -107,11 +150,12 @@
             display: block;
         }
 
-        .main-content {
-            margin-left: 270px;
-            padding: 2rem;
-            max-width: 800px;
-        }
+.main-content {
+    margin-left: 270px;
+    padding: 2rem;
+    width: calc(100% - 270px); /* This ensures it takes full remaining width */
+    max-width: 1200px; /* You can adjust this value */
+}
 
         .content-section {
             background: var(--p5-black);
@@ -136,6 +180,104 @@
             background: rgba(0, 0, 0, 0.3);
             border-radius: 4px;
         }
+		   .mobile-nav {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+            z-index: 100;
+            border-top: 2px solid var(--p5-red);
+        }
+
+        .mobile-nav-buttons {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .mobile-nav-button {
+            color: #fff;
+            text-decoration: none;
+            padding: 0.5rem;
+            border-radius: 4px;
+            font-size: 0.775rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            flex: 1;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .mobile-nav-button:hover, .mobile-nav-button.active {
+            background: rgba(255, 0, 0, 0.2);
+            color: var(--p5-red);
+        }
+
+        .scroll-top {
+            display: none;
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            background: var(--p5-red);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            cursor: pointer;
+            z-index: 100;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .scroll-top {
+                bottom: 100px; /* Increased distance from bottom to appear above mobile nav */
+                right: 16px;
+                width: 36px; /* Slightly smaller on mobile */
+                height: 36px;
+                line-height: 36px;
+            }
+        }
+
+        .scroll-top:hover {
+            background: var(--p5-dark-red);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .mobile-nav {
+                display: block;
+            }
+
+            .main-content {
+        padding-bottom: 80px;
+		margin-left: 0;
+        margin-right: 0;
+        padding: 1rem;
+        max-width: 100%;
+        width: 100%;
+            }
+        }
+		
+		/* Hide by default (on desktop) */
+.mobile-only {
+    display: none;
+}
+
+/* Show on mobile screens */
+@media (max-width: 768px) {
+    .mobile-only {
+        display: block;  /* or display: inline; depending on your needs */
+    }
+}
     </style>
 </head>
 <body>
@@ -367,6 +509,47 @@
                     window.location.href = this.getAttribute('href');
                 }
             });
+        });
+    </script>
+		    <nav class="mobile-nav">
+        <div class="mobile-nav-buttons">
+		    <a href="index.html" class="mobile-nav-button">Home</a>
+            <a href="banned-links.html" class="mobile-nav-button">Bad Links</a>
+            <a href="banned-words.html" class="mobile-nav-button">Bad Words</a>
+            <a href="staff-application.html" class="mobile-nav-button">Staff Apply</a>
+        </div>
+    </nav>
+
+    <!-- Scroll to Top Button -->
+     <div class="scroll-top">↑</div>
+
+    <script>
+        // Previous script content remains the same
+
+        // Scroll to Top functionality
+        const scrollTopButton = document.querySelector('.scroll-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 100) {
+                scrollTopButton.style.display = 'block';
+            } else {
+                scrollTopButton.style.display = 'none';
+            }
+        });
+
+        scrollTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Active state for mobile navigation
+        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+        document.querySelectorAll('.mobile-nav-button').forEach(button => {
+            if (button.getAttribute('href') === currentPage) {
+                button.classList.add('active');
+            }
         });
     </script>
 </body>

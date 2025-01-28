@@ -108,10 +108,14 @@
             border-left: 3px solid var(--p5-red);
             transition: all 0.3s ease;
         }
-        .rule-header {
-            color: #fff;
-            transition: all 0.3s ease;
-        }
+.rule-header {
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    -webkit-tap-highlight-color: transparent; /* Removes mobile tap highlight */
+    user-select: none; /* Prevents text selection on mobile */
+}
         .rule-header:hover {
             color: var(--p5-red);
             background: rgba(255, 0, 0, 0.1);
@@ -255,23 +259,50 @@
             display: flex;
             align-items: center;
         }
-        .rule-header::before {
-            content: "▼";
-            display: inline-block;
-            margin-right: 0.5rem;
-            transition: transform 0.2s;
-        }
-        .rule-header.collapsed::before {
-            transform: rotate(-90deg);
-        }
-        .rule-content {
-            padding: 1rem;
-            background: rgba(0,0,0,0.2);
-            display: none;
-        }
-        .rule-content.active {
-            display: block;
-        }
+.rule-header::before {
+    content: "▼";
+    display: inline-block;
+    margin-right: 0.5rem;
+    transition: transform 0.3s ease;
+}
+
+.rule-header.collapsed::before {
+    transform: rotate(-90deg);
+}
+
+@media (max-width: 768px) {
+    .rule-header {
+        padding: 1rem;
+        font-size: 1rem;
+    }
+    
+.rule-content {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out, opacity 0.3s ease-out, padding 0.3s ease-out;
+    padding: 0 1rem;
+}
+
+    
+.rule-content.active {
+    opacity: 1;
+    padding: 1rem;
+	}
+}
+
+.rule-content {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out, opacity 0.3s ease-out, padding 0.3s ease-out;
+    padding: 0 1rem;
+}
+
+.rule-content.active {
+    opacity: 1;
+    padding: 1rem;
+}
         .warning-box {
             background: #3e2723;
             border: 1px solid #795548;
@@ -288,6 +319,100 @@
             color: #fff;
             margin-top: 0.5rem;
         }
+		
+   .mobile-nav {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+            z-index: 100;
+            border-top: 2px solid var(--p5-red);
+        }
+
+        .mobile-nav-buttons {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .mobile-nav-button {
+            color: #fff;
+            text-decoration: none;
+            padding: 0.5rem;
+            border-radius: 4px;
+            font-size: 0.775rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            flex: 1;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .mobile-nav-button:hover, .mobile-nav-button.active {
+            background: rgba(255, 0, 0, 0.2);
+            color: var(--p5-red);
+        }
+
+        .scroll-top {
+            display: none;
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            background: var(--p5-red);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            cursor: pointer;
+            z-index: 100;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .scroll-top {
+                bottom: 100px; /* Increased distance from bottom to appear above mobile nav */
+                right: 16px;
+                width: 36px; /* Slightly smaller on mobile */
+                height: 36px;
+                line-height: 36px;
+            }
+        }
+
+        .scroll-top:hover {
+            background: var(--p5-dark-red);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .mobile-nav {
+                display: block;
+            }
+
+            .main-content {
+                padding-bottom: 80px;
+            }
+        }
+		
+		/* Hide by default (on desktop) */
+.mobile-only {
+    display: none;
+}
+
+/* Show on mobile screens */
+@media (max-width: 768px) {
+    .mobile-only {
+        display: block;  /* or display: inline; depending on your needs */
+    }
+}
     </style>
 </head>
 <body>
@@ -339,9 +464,12 @@
 
     <main class="main-content">
         <h1 class="text-4xl font-bold mb-8">Rules</h1>
+		<p class="mobile-only">This may look a bit messy on mobile, sorry ;(</p>
+		<p class="mobile-only">For a better viewing experience, use the desktop site</p>
 
         <section id="1">
             <h2 class="text-2xl font-bold mb-4">1. Follow Discord's Terms of Service and Community Guidelines</h2>
+			
             <div class="warning-box">
                 This is a catch-all rule. We base our rules on these guidelines. Violating these rules will lead to a permanent ban. We do allow client modifications such as BetterDiscord and Vencord. You are welcome to talk about them.
             </div>
@@ -352,6 +480,7 @@
                     You must meet the minimum age requirement for Discord within your country. Claiming to be younger, even as a joke, will result in a ban.
                 </div>
             </div>
+				<p class="mobile-only">You must meet the minimum age requirement for Discord within your country. Claiming to be younger, even as a joke, will result in a ban.</p>
 
             <div class="rule-section">
                 <div class="rule-header">1.2. Do not use self-bots, nitro snipers, auto changing statuses, API exploits, or do anything that harms Discord's servers</div>
@@ -359,7 +488,7 @@
                     If we see that you are doing one of these, you will be banned for violating Discord's Terms of Service.
                 </div>
             </div>
-
+				<p class="mobile-only">If we see that you are doing one of these, you will be banned for violating Discord's Terms of Service.</p>
             <div class="rule-section">
                 <div class="rule-header">1.3. Do not engage or joke about organizing raids, doxxes, or swatting</div>
                 <div class="rule-content">
@@ -367,21 +496,22 @@
                     <div class="note">Note: You can talk about how a server got raided or someone got mass harassed. We just ask you to not encourage the behavior.</div>
                 </div>
             </div>
-
+				<p class="mobile-only">Any threat or joke about raiding, doxxing, or swatting someone will result in a permanent ban. Sharing doxxing information is also considered a bannable offense, even if you are trying to make mods aware of it. When in doubt, create a ticket.</p>
+				<p class="mobile-only">Note: You can talk about how a server got raided or someone got mass harassed. We just ask you to not encourage the behavior.</p>
             <div class="rule-section">
                 <div class="rule-header">1.4. Do not use Discord to scam or send malware / viruses / malicious links</div>
                 <div class="rule-content">
                     Sending viruses or malware goes against Discord's Terms of Service, and we will ban you if we find out you have sent or participated in them in or out of the server. For the sake of simplicity, IP grabbers are also not allowed.
                 </div>
             </div>
-
+				<p class="mobile-only"> Sending viruses or malware goes against Discord's Terms of Service, and we will ban you if we find out you have sent or participated in them in or out of the server. For the sake of simplicity, IP grabbers are also not allowed.</p>
             <div class="rule-section">
                 <div class="rule-header">1.5 Do not leak private information</div>
                 <div class="rule-content">
                     We do not allow any identifiable information to be sent to the server. This includes but is not limited to: IPs, addresses, phone numbers, legal names, or government issued IDs. Any other identifiable information is also not allowed on the server. Giving out fake information as a joke may potentially also result in a ban.
                 </div>
             </div>
-
+				<p class="mobile-only">We do not allow any identifiable information to be sent to the server. This includes but is not limited to: IPs, addresses, phone numbers, legal names, or government issued IDs. Any other identifiable information is also not allowed on the server. Giving out fake information as a joke may potentially also result in a ban.</p>
             <div class="rule-section">
                 <div class="rule-header">1.6 No Recording of Voice Channels</div>
                 <div class="rule-content">
@@ -389,7 +519,7 @@
                 </div>
             </div>
         </section>
-
+				<p class="mobile-only"> Recording VCs without consent is frowned upon in the server, therefore we do not allow it. We also abide by California state law, and so did you upon accepting Discord's privacy policy. You need consent from everyone in the VC if you are going to record the VC. The only exceptions to this rule are the stages hosted by the owners, which we do allow.</p>
         <section id="2">
             <h2 class="text-2xl font-bold mb-4">2. No NSFW Content / Gore / Explicit Behavior</h2>
             <div class="rule-section">
@@ -398,35 +528,35 @@
                     We have a zero tolerance policy for any sort of NSFW content. NSFW content is any content meant to sexualize or inflict arousal. This includes but is not limited to: jokes, memes, conversation, and pictures.
                 </div>
             </div>
-
+				<p class="mobile-only">We have a zero tolerance policy for any sort of NSFW content. NSFW content is any content meant to sexualize or inflict arousal. This includes but is not limited to: jokes, memes, conversation, and pictures.</p>
             <div class="rule-section">
                 <div class="rule-header">2.2. No NSFL or gore content</div>
                 <div class="rule-content">
                     NSFL (Not Safe For Life) are videos, pictures, or conversation that involves but is not limited to gore and any other topics that intend to shock or disturb members. Any discussion about these topics will result in severe punishment.
                 </div>
             </div>
-
+				<p class="mobile-only">NSFL (Not Safe For Life) are videos, pictures, or conversation that involves but is not limited to gore and any other topics that intend to shock or disturb members. Any discussion about these topics will result in severe punishment.</p>
             <div class="rule-section">
                 <div class="rule-header">2.3. Do not e-date or try to flirt with someone</div>
                 <div class="rule-content">
                     We have a zero tolerance policy on e-dating and flirting, and since there are members of *all* ages that can join, this is especially not allowed. Members who try to converse or send media to other members with the intent of flirting/hitting on/rizzing up, whether a joke or not, will be punished. This also includes coming into the server with the intent of looking for people to flirt with or baiting people (“I like older men” “Any cute girls here?”).
                 </div>
             </div>
-
+				<p class="mobile-only">We have a zero tolerance policy on e-dating and flirting, and since there are members of *all* ages that can join, this is especially not allowed. Members who try to converse or send media to other members with the intent of flirting/hitting on/rizzing up, whether a joke or not, will be punished. This also includes coming into the server with the intent of looking for people to flirt with or baiting people (“I like older men” “Any cute girls here?”).</p>
             <div class="rule-section">
                 <div class="rule-header">2.4. Do not send any bait or cropped or suggestive NSFW content</div>
                 <div class="rule-content">
                     Photos or memes that appear to look like NSFW, NSFL, or gore, are not allowed on the server (optical illusions, blurry eye trick, etc.), or in server profiles. This includes cropped pictures, blurry pictures, and vague pictures. Media with the intent of looking suggestive or implying NSFW are also not allowed.
                 </div>
             </div>
-
+				<p class="mobile-only"> Photos or memes that appear to look like NSFW, NSFL, or gore, are not allowed on the server (optical illusions, blurry eye trick, etc.), or in server profiles. This includes cropped pictures, blurry pictures, and vague pictures. Media with the intent of looking suggestive or implying NSFW are also not allowed.</p>
             <div class="rule-section">
                 <div class="rule-header">2.5. Do not send any form of pornography, nudity, or gore</div>
                 <div class="rule-content">
                     Any form of media that contains/implies NSFW, will result in a permanent ban. If you wouldn’t send it to your grandmother, do not send it here.
                 </div>
             </div>
-
+				<p class="mobile-only">Any form of media that contains/implies NSFW, will result in a permanent ban. If you wouldn’t send it to your grandmother, do not send it here.</p>
             <div class="rule-section">
                 <div class="rule-header">2.6. Do not sexualize minors or joke about it</div>
                 <div class="rule-content">
@@ -434,7 +564,7 @@
                 </div>
             </div>
         </section>
-
+				<p class="mobile-only"> We have a zero tolerance policy for any jokes, comments, or any other form of media that sexualizes a minor and you will be heavily warned or banned immediately for it. This also includes if you yourself are a minor and are calling another minor hot. We have a zero tolerance policy for it, and you will be banned with no chance of appeal. This rule also floats under Rule 2.3. If you flirt with someone and they end up being a minor, you will be banned.</p>
         <section id="3">
             <h2 class="text-2xl font-bold mb-4">3. Be Respectful to All Members</h2>
             <div class="rule-section">
@@ -443,14 +573,14 @@
                     Causing disruptions in chat, being a nuisance to members, and generally being negative are all ways to get punished. We expect you to be respectful to other members, avoid arguments, and step away when you get angry. If you have the inability to be a kind, respectful member, you will be punished. If you wish to argue with someone or discuss sensitive topics, please go to DMs or do not do it at all.
                 </div>
             </div>
-
+				<p class="mobile-only"> Causing disruptions in chat, being a nuisance to members, and generally being negative are all ways to get punished. We expect you to be respectful to other members, avoid arguments, and step away when you get angry. If you have the inability to be a kind, respectful member, you will be punished. If you wish to argue with someone or discuss sensitive topics, please go to DMs or do not do it at all.</p>
             <div class="rule-section">
                 <div class="rule-header">3.2 Do not send death threats, be racist, sexist, or engage in hate speech</div>
                 <div class="rule-content">
                     We have a zero tolerance for any sort of hate speech. This includes racism, sexism, homophobia, transphobia, etc. Comments or jokes that look like hate speech will be punished accordingly. And yes, having a swastika on your profile is considered to be xenophobic and you will be banned for it. Death threats, including telling someone to “off” themselves, will also result in punishment. This includes threats that are meant to be jokes.
                 </div>
             </div>
-
+				<p class="mobile-only"> We have a zero tolerance for any sort of hate speech. This includes racism, sexism, homophobia, transphobia, etc. Comments or jokes that look like hate speech will be punished accordingly. And yes, having a swastika on your profile is considered to be xenophobic and you will be banned for it. Death threats, including telling someone to “off” themselves, will also result in punishment. This includes threats that are meant to be jokes.</p>
             <div class="rule-section">
                 <div class="rule-header">3.3 Avoid Sensitive Topics</div>
                 <div class="rule-content">
@@ -463,13 +593,15 @@
 					<div class="note">War</div>
                 </div>
             </div>
-
-            <div class="rule-section">
+			<p class="mobile-only"> We want to try and respect everyone’s opinions. If you do happen to talk about a sensitive topic and drama does ensue, moderative actions will be handed out. Some examples of sensitive topics include:</p>
+            <p class="mobile-only">Politics, Religion, Sexuality, Gender, War, etc.</p>
+				<div class="rule-section">
                 <div class="rule-header">3.4 Do not ragebait</div>
                 <div class="rule-content">
                     Intentionally asking controversial questions or responding to members with the intent to cause arguments or anger members will result in punishment. Whether a member had the intent to rage bait will be up to the discretion of moderators.
-                </div>
+				</div>
             </div>
+							<p class="mobile-only">Intentionally asking controversial questions or responding to members with the intent to cause arguments or anger members will result in punishment. Whether a member had the intent to rage bait will be up to the discretion of moderators.</p>
         </section>
 
         <section id="4">
@@ -480,21 +612,21 @@
                     Spamming any sort of media, including emotes and reactions, are prohibited. Spamming also includes pinging people without a good reason, excessive posting in forum channels, and creating numerous tickets in a short period of time. Spamming in VC includes: excessive use of soundboards, screaming into the mic, join/leaving quickly, and voice changers/TTS that irritate members. Sending one singular message meant to fill up the chat is called flooding and is also considered as spam. Messaging chaining, where multiple members all copy and paste the same message, is also considered spamming.
                 </div>
             </div>
-
+				<p class="mobile-only">Spamming any sort of media, including emotes and reactions, are prohibited. Spamming also includes pinging people without a good reason, excessive posting in forum channels, and creating numerous tickets in a short period of time. Spamming in VC includes: excessive use of soundboards, screaming into the mic, join/leaving quickly, and voice changers/TTS that irritate members. Sending one singular message meant to fill up the chat is called flooding and is also considered as spam. Messaging chaining, where multiple members all copy and paste the same message, is also considered spamming.</p>
             <div class="rule-section">
                 <div class="rule-header">4.2. Do not be annoying</div>
                 <div class="rule-content">
                     There is no cut and dry definition of annoying. If numerous people are clearly irritated and annoyed with you, you are probably the issue, and you need to find a different topic to talk about. Trying to cause drama, making numerous members uncomfortable, and being a general annoyance will result in punishment.
                 </div>
             </div>
-
+				<p class="mobile-only">There is no cut and dry definition of annoying. If numerous people are clearly irritated and annoyed with you, you are probably the issue, and you need to find a different topic to talk about. Trying to cause drama, making numerous members uncomfortable, and being a general annoyance will result in punishment.</p>
             <div class="rule-section">
                 <div class="rule-header">4.3. Do not send loud/bright media</div>
                 <div class="rule-content">
                     We do not allow ear-rape media or media that triggers people with photosensitivity issues.
                 </div>
             </div>
-
+				<p class="mobile-only">We do not allow ear-rape media or media that triggers people with photosensitivity issues.</p>
             <div class="rule-section">
                 <div class="rule-header">4.4. No Mini-Modding</div>
                 <div class="rule-content">
@@ -504,20 +636,23 @@
 <div class="note">3. Actively witch hunting members in order to get them punished</div>
                 </div>
             </div>
-
+				<p class="mobile-only"> Mini-modding (also known as backseat moderating) is correcting someone’s behavior when you are in fact not a moderator. Examples of mini-modding include:</p>
+<p class="mobile-only">1. Threatening to punish someone for breaking the rules</p>
+<p class="mobile-only">2. Disagreeing with appropriate moderator actions</p>
+<p class="mobile-only">3. Actively witch hunting members in order to get them punished</p>											
             <div class="rule-section">
                 <div class="rule-header">4.5. Do not bypass Automod</div>
                 <div class="rule-content">
                     If your message gets blocked, it was because it was blocked by automod. When this happens, do not try to send your message by changing the letters of words in order to push it through (eg, retard = restarted). This is known as an automod bypass, and you will be punished for it. We have words blocked for a reason. Yes, words known as brain rot such as sigma, skibidi, and gyatt are blocked. This was implemented due to the words being used to annoy members and lack of being used in a normal context.
                 </div>
             </div>
+<p class="mobile-only">If your message gets blocked, it was because it was blocked by automod. When this happens, do not try to send your message by changing the letters of words in order to push it through (eg, retard = restarted). This is known as an automod bypass, and you will be punished for it. We have words blocked for a reason.</p>
         </section>
 
         <section id="5">
 			<h2 class="text-2xl font-bold mb-4">5. English is Preferred, other languages are allowed</h2>
             <p class="mb-4">While we do prefer that English is used, you may use any language that you wish, so long as it is properly used and not to annoy others. Also, if a channel is made for a certain language, please make sure to use it if possible.</p>
         </section>
-
         <section id="6">
             <h2 class="text-2xl font-bold mb-4">6. Discord Profiles</h2>
             <div class="rule-section">
@@ -526,13 +661,14 @@
                     Discord profiles must abide by all server rules as well as Discord’s Terms of Service. Any NSFW, automodded words, racism, hate speech, sexism, transphobia, malicious content, etc. will result in you being punished. Every part of your profile is able to be moderated including, name, bio, PFP, and pronouns.
                 </div>
             </div>
-
+				<p class="mobile-only"> Discord profiles must abide by all server rules as well as Discord’s Terms of Service. Any NSFW, automodded words, racism, hate speech, sexism, transphobia, malicious content, etc. will result in you being punished. Every part of your profile is able to be moderated including, name, bio, PFP, and pronouns.</p>
             <div class="rule-section">
                 <div class="rule-header">6.2. No Impersonation</div>
                 <div class="rule-content">
                     Impersonating any staff, owners, or Bladecifer will result in a ban, joke or not. Impersonation of select other bots/YouTubers are also subjected to be moderated at moderator discretion.
                 </div>
             </div>
+<p class="mobile-only">Impersonating any staff, owners, or Bladecifer will result in a ban, joke or not. Impersonation of select other bots/YouTubers are also subjected to be moderated at moderator discretion.</p>
         </section>
 
         <section id="7">
@@ -544,13 +680,16 @@
                     DM advertising is sending an unsolicited invitation to servers/games/links/etc to a member without a reason. DM advertisements are also against Discord’s Terms of Service and will result in a ban.
                 </div>
             </div>
-
-            <div class="rule-section">
+				
+				<p class="mobile-only">DM advertising is sending an unsolicited invitation to servers/games/links/etc to a member without a reason. DM advertisements are also against Discord’s Terms of Service and will result in a ban.</p>
+				<p class="mobile-only">These rules apply for anyone sending a discord invite, link to their social media, or referral links to a platform.</p>
+			<div class="rule-section">
                 <div class="rule-header">7.2. Do not Advertise through or on the server</div>
                 <div class="rule-content">
                     Sending an invite link, telling people to join your server, intentionally pointing to your status or about me that contains an advertisement is strictly prohibited. We do not allow advertising on this server.
                 </div>
             </div>
+							<p class="mobile-only">Sending an invite link, telling people to join your server, intentionally pointing to your status or about me that contains an advertisement is strictly prohibited. We do not allow advertising on this server.</p>
         </section>
 
         <section id="8">
@@ -588,13 +727,26 @@
             });
         });
 
+document.addEventListener('DOMContentLoaded', function() {
+    // Only add click handlers if not on mobile
+    if (window.innerWidth > 768) {
         document.querySelectorAll('.rule-header').forEach(header => {
-            header.addEventListener('click', () => {
-                header.classList.toggle('collapsed');
-                const content = header.nextElementSibling;
-                content.classList.toggle('active');
+            header.addEventListener('click', function(e) {
+                e.preventDefault();
+                this.classList.toggle('collapsed');
+                const content = this.nextElementSibling;
+                
+                if (content.classList.contains('active')) {
+                    content.style.maxHeight = '0px';
+                    content.classList.remove('active');
+                } else {
+                    content.classList.add('active');
+                    content.style.maxHeight = content.scrollHeight + 'px';
+                }
             });
         });
+    }
+});
 
         const observer = new IntersectionObserver(entries => {
             entries.forEach(entry => {
@@ -614,6 +766,48 @@
 
         document.querySelectorAll('section').forEach(section => {
             observer.observe(section);
+        });
+    </script>
+	
+	    <nav class="mobile-nav">
+        <div class="mobile-nav-buttons">
+            <a href="banned-links.html" class="mobile-nav-button">Bad Links</a>
+            <a href="banned-words.html" class="mobile-nav-button">Bad Words</a>
+            <a href="staff-guidelines.html" class="mobile-nav-button">Staff Guide</a>
+            <a href="staff-application.html" class="mobile-nav-button">Staff Apply</a>
+        </div>
+    </nav>
+
+    <!-- Scroll to Top Button -->
+     <div class="scroll-top">↑</div>
+
+    <script>
+        // Previous script content remains the same
+
+        // Scroll to Top functionality
+        const scrollTopButton = document.querySelector('.scroll-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 100) {
+                scrollTopButton.style.display = 'block';
+            } else {
+                scrollTopButton.style.display = 'none';
+            }
+        });
+
+        scrollTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Active state for mobile navigation
+        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+        document.querySelectorAll('.mobile-nav-button').forEach(button => {
+            if (button.getAttribute('href') === currentPage) {
+                button.classList.add('active');
+            }
         });
     </script>
 </body>
