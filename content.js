@@ -39,16 +39,16 @@ const CATALOG = [
   //  series; if it has gone offline the site will simply show this
   //  entry as "source unavailable".)
   {
-    slug: "demo-series",
-    title: "Demo Series",
-    author: "Replace Me",
+    slug: "anko-chan",
+    title: "Useless Evil Spirit Anko-chan",
+    author: "Yuritarou",
     status: "Ongoing",
-    tags: ["Demo"],
-    description: "This is a demo entry so you can see the site working. Open content.js and replace it with your own series.",
-    cover: "",
+    tags: ["Romcom, Romance, Comedy, Mystery, Supernatural"],
+    description: "She's not so useless after all!",
+    cover: "https://cdn.imgchest.com/files/f8916ad3555c.jpg",
     featured: true,
     sources: [
-      { label: "Main", url: "https://cubari.moe/read/gist/OPM/" },
+      { label: "Main", url: "https://cubari.moe/read/imgchest/agyvp2qpjy8/" },
     ],
   },
 
