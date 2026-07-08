@@ -25,12 +25,12 @@ const SITE = {
   // Real security comes from the Firestore rules (see firestore.rules).
   // Leave apiKey as "" to run the site without accounts.
   firebase: {
-    apiKey: "",
-    authDomain: "",
-    projectId: "",
-    storageBucket: "",
-    messagingSenderId: "",
-    appId: "",
+    apiKey: "AIzaSyAfCzHJaKQ92Al_0XO5OHEtq554Oxs_oi8",
+    authDomain: "percentscans.firebaseapp.com"",
+    projectId: "percentscans",
+    storageBucket: "percentscans.firebasestorage.app",
+    messagingSenderId: "942389236236",
+    appId: "1:942389236236:web:585560b5fcfb129caa9429",
   },
 
   // How long (minutes) fetched cubari data is cached in the browser.
