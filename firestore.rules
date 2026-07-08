@@ -1,0 +1,58 @@
+rules_version = '2';
+
+// 8% Scans — Firestore security rules
+// Paste this into: Firebase console → Firestore Database → Rules → Publish
+//
+// These rules ARE the security of the ratings system. The website code
+// can be modified by anyone (it runs in their browser), but Firestore
+// enforces these rules on Google's servers, so no one can:
+//   - rate or thumb without being signed in
+//   - submit more than one rating per series (doc ID is slug__uid)
+//   - submit a rating outside 1–5 stars
+//   - write ratings/thumbs under someone else's identity
+//   - edit or delete anyone else's rating/thumb
+//   - write to any other collection at all
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // One rating per user per series. Doc ID must be "<slug>__<uid>".
+    match /ratings/{id} {
+      allow read: if true;
+      allow create, update: if request.auth != null
+        && id == request.resource.data.slug + '__' + request.auth.uid
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.stars is int
+        && request.resource.data.stars >= 1
+        && request.resource.data.stars <= 5
+        && request.resource.data.slug is string
+        && request.resource.data.slug.size() > 0
+        && request.resource.data.slug.size() < 100
+        && request.resource.data.keys().hasOnly(['slug','uid','stars','ts']);
+      allow delete: if request.auth != null
+        && resource.data.uid == request.auth.uid;
+    }
+
+    // One thumbs-up per user per chapter. Doc ID "<slug>__<ch>__<uid>".
+    match /thumbs/{id} {
+      allow read: if true;
+      allow create: if request.auth != null
+        && id == request.resource.data.slug + '__' + request.resource.data.ch + '__' + request.auth.uid
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.slug is string
+        && request.resource.data.slug.size() > 0
+        && request.resource.data.slug.size() < 100
+        && request.resource.data.ch is string
+        && request.resource.data.ch.size() > 0
+        && request.resource.data.ch.size() < 20
+        && request.resource.data.keys().hasOnly(['slug','ch','uid','ts']);
+      allow delete: if request.auth != null
+        && resource.data.uid == request.auth.uid;
+    }
+
+    // Everything else: locked.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
