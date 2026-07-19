@@ -13,7 +13,7 @@
 
 # --- Security headers --------------------------------------------
 <IfModule mod_headers.c>
-  Header always set Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests"
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://lingva.ml https://lingva.garudalinux.org https://lingva.lunar.icu; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests"
   Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
   Header always set X-Frame-Options "DENY"
   Header always set X-Content-Type-Options "nosniff"
@@ -32,6 +32,16 @@
 
 # --- Disable directory listings -----------------------------------
 Options -Indexes
+
+# --- PWA: correct manifest MIME + never cache the service worker ---
+<IfModule mod_mime.c>
+  AddType application/manifest+json .webmanifest
+</IfModule>
+<IfModule mod_headers.c>
+  <FilesMatch "(^sw\.js|manifest\.webmanifest)$">
+    Header set Cache-Control "no-cache, max-age=0, must-revalidate"
+  </FilesMatch>
+</IfModule>
 
 # --- Basic caching -------------------------------------------------
 <IfModule mod_expires.c>

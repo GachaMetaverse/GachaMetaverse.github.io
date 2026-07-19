@@ -8,18 +8,20 @@ This guide assumes **zero prior experience**. Follow it top to bottom and you'll
 
 ```
 gacha-guides/
-├── index.html            Home page
-├── game.html             Tier list page (one page serves every game)
-├── character.html        Character detail page
-├── guides.html           Guide index with search
+├── index.html            Home page (popular/new games, upcoming releases)
+├── game.html             Game hub — wiki front page with guide categories
+├── tierlist.html         Filterable tier list (categories, search, tooltips)
+├── characters.html       Character database with filters
+├── character.html        Character detail page (review, ratings, build)
+├── guides.html           Global guide index across all games
 ├── guide.html            Single guide article page
 ├── css/style.css         All visual styling
-├── js/config.js          ← YOUR settings: site name, colors, nav, socials
+├── js/config.js          ← YOUR settings: name, theme, colors, socials
 ├── js/app.js             The engine (you shouldn't need to touch this)
-├── data/games.js         ← YOUR games and tier lists
-├── data/characters.js    ← YOUR characters and builds
+├── data/games.js         ← YOUR games, tier list setup, upcoming releases
+├── data/characters.js    ← YOUR characters, builds, tier placements
 ├── data/guides.js        ← YOUR guide articles
-├── assets/               Put images here (portraits, banners)
+├── assets/               Put images here (portraits, banners, keyart)
 ├── _headers              Security config for Netlify / Cloudflare Pages
 ├── .htaccess             Security config for Apache shared hosting
 └── nginx-security.conf   Security config for VPS self-hosting
@@ -41,19 +43,22 @@ Edit `js/config.js`, change `siteName` to your site's name, save, refresh the br
 
 ## 3. Make it yours
 
-### Site name, colors, links → `js/config.js`
-Every option has a comment explaining it. Colors are hex codes like `#F5B942` — pick them at htmlcolorcodes.com. Invalid values are ignored safely (the site falls back to defaults).
+### Site name, theme, links → `js/config.js`
+Pick a whole look with one word: `theme: "azure"` (blue), `"ember"` (red), `"gilded"` (gold), `"toxin"` (green), or `"phantom"` (purple) — or override individual colors with hex codes in `colors:`. Invalid values are ignored safely. You can also set a **scrolling parallax background** (`scrollingBackground`) using a wide tileable keyart strip, plus a home hero image and a Discord button link.
 
 ### Add a game → `data/games.js`
 Copy an existing game block (everything between one `{` and its matching `},`), paste it after, and edit. Rules:
 - `id` is lowercase, no spaces, unique. It appears in URLs like `game.html?id=yourgame`.
-- Tier rows list character `id`s — those must exist in `data/characters.js`.
+- `elements` and `roles` define the tier list's filter pills and columns — characters must use these exact names.
+- `tierlist.categories` are the banner tabs (game modes). Each category can define its own `columns` (e.g. Single-Target / 3-Target / Buffers), and `tierlist.tiers` sets the tier order — first is best, with colors (violet → red → orange → yellow → green → teal → blue) assigned automatically.
+- `popular: true` / `isNew: true` control which home page sections the game appears in.
+- `GG_UPCOMING` at the bottom of the file feeds the "Upcoming releases" panel.
 
 ### Add a character → `data/characters.js`
-Same copy-paste-edit process. `game` must match a game `id`. `rarity` (5, 4, or 3) automatically sets the card colors and star count.
+Same copy-paste-edit process. `game` must match a game `id`; `element` and `role` must match that game's definitions. The `tiers` object places the character on the tier list per category. A placement can be a simple string (`pvp: "S"`), an object with a column (`pve: {tier:"SSS", col:"3-Target"}`), or an array of objects when a hero belongs in several columns. Use `"?"` for "too new to rank", or omit a category to hide them there. `isNew: true` adds the pulsing NEW badge. `rarity` (5/4/3) sets stars plus the glow animations: gold pulse for 5★, violet for 4★.
 
 ### Add a guide → `data/guides.js`
-Guides are written as **blocks** (`h2`, `p`, `list`, `tip`) instead of raw HTML. This isn't just for convenience — it means guide text can never break or attack your site, even if you someday accept guest submissions.
+Guides are written as **blocks** (`h2`, `p`, `list`, `note`, `tip`) instead of raw HTML. This isn't just for convenience — it means guide text can never break or attack your site, even if you someday accept guest submissions. Use `**double asterisks**` inside any text for bold. The `category` field groups guides on the game hub page ("Newbie Corner", "Generic Guides", or any name you invent — sections are created automatically).
 
 ### Images
 Drop images into `assets/` and reference them like `"assets/aurelia.webp"`, or paste a full `https://` image URL. Anything else (like `javascript:` links) is automatically rejected by the engine.

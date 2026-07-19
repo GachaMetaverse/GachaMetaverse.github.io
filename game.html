@@ -3,23 +3,30 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#12100A">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" type="image/svg+xml" href="icon.svg">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="LanceDEX">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <title>Game</title>
-  <meta name="description" content="Tier lists, builds, and guides for gacha games.">
+  <meta name="description" content="Tier lists, character builds, and guides for gacha games.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body data-page="game">
   <nav id="site-nav" aria-label="Main navigation"></nav>
+  <aside id="sidebar" aria-label="Game navigation"></aside>
   <main id="main"></main>
   <footer id="site-footer"></footer>
 
-  <script src="js/config.js"></script>
-  <script src="data/games.js"></script>
-  <script src="data/characters.js"></script>
-  <script src="data/guides.js"></script>
-  <script src="js/app.js"></script>
+  <script defer src="js/config.js"></script>
+  <script defer src="js/i18n.js"></script>
+  <script defer src="js/content-translate.js"></script>
+  <script defer src="data/games.js"></script>
+  <script defer src="js/app.js"></script>
 </body>
 </html>
